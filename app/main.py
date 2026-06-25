@@ -16,7 +16,7 @@ async def websocks(websockets: WebSocket):
             
             await websockets.send(data)
             
-    except websocketsdisconnected:
+    except :
         print("offline")
         
             
