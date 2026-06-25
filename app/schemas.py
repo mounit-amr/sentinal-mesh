@@ -7,3 +7,5 @@ class user(Base):
     id = column(Integer, primary_key = True, index = True)
     
     name = column(String, unique = True )
+    
+    role = column(String)
