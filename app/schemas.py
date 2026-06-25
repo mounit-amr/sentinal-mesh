@@ -1,0 +1,9 @@
+from sqlalchemy import column, Integer, String, DateTime
+from datetime import datetime
+
+class user(Base):
+    __tablename__ = "user"
+    
+    id = column(Integer, primary_key = True, index = True)
+    
+    name = column(String, unique = True )
