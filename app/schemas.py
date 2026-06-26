@@ -10,4 +10,4 @@ class user(Base):
     
     role = column(String) 
     
-    
+    email = column(String, unique = True)
