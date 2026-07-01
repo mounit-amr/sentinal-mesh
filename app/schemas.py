@@ -1,14 +1,27 @@
-from sqlalchemy import column, Integer, String, DateTime
-from datetime import datetime#dont know why redlines
+from pydantic import BaseModel, ConfigDict
+from typing import Optional
+from datetime import datetime
 
-class user(Base):
-    __tablename__ = "user"
+class AgentBase(BaseModel):
+    hostname : str
+    ip_address : str
+    operating_system : str
     
-    id = column(Integer, primary_key = True, index = True)
+class Agentcreate(AgentBase):
+    pass
+
+class AgentUpdate(BaseModel):
+    hostname : Optional[str] = None
+    ip_address : Optional[str] = None
+    operating_system : Optional[str] = None
+    status : Optional[str] = None
     
-    name = column(String, unique = false )
-    
-    role = column(String) 
-    
-    email = column(String, unique = True)
+class AgentRetrieval(BaseModel):
+    id : int
+    hostname : str
+    ip_address : str
+    operating_system : str
+    status : str
+    lastseen : Optional[datetime] = None
+    created_at : datetime
     
