@@ -20,6 +20,8 @@ class Agent(Base):
     
     hostname = Column(String)
     
+    operating_system = Column(String)
+    
     created_at = Column(DateTime, default= datetime.utcnow)
     
     
