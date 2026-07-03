@@ -5,10 +5,15 @@ from models import Agent
 from schemas import AgentRetrieval, Agentcreate, AgentBase
 
 router = APIRouter(
-    prefix="/agents"
+    prefix="/agents" 
     tags=["Agents"]
 )
 
 @router.post("/", response_model= AgentRetrieval)
 def createagent(agent: Agentcreate, db : Session = Depends(get_db)):
-    db_agent = AgentBase(hostname= )
+    db_agent = Agent(hostname= agent.hostname , operating_system = agent.operating_system)
+    db.add(db_agent)
+    db.commit()
+    db.refresh(db_agent)
+    return db_agent
+    
