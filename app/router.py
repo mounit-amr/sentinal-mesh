@@ -17,3 +17,7 @@ def createagent(agent: Agentcreate, db : Session = Depends(get_db)):
     db.refresh(db_agent)
     return db_agent
     
+@router.get("/Agents", response_model= AgentRetrieval)
+def get_agents(db : Session = Depends(get_db)):
+    agents = db.query(Agent).all()
+    return agents
