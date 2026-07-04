@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from database import get_db
 from models import Agent
-from schemas import AgentRetrieval, Agentcreate, AgentBase
+from schemas import AgentRetrieval, Agentcreate, AgentBase, AgentUpdate
 
 router = APIRouter(
     prefix="/agents" 
@@ -21,3 +21,7 @@ def createagent(agent: Agentcreate, db : Session = Depends(get_db)):
 def get_agents(db : Session = Depends(get_db)):
     agents = db.query(Agent).all()
     return agents
+
+@router.put("/update", response_model= AgentUpdate)
+def update_agent(agent : Agentcreate, db : Session = Depends(get_db)):
+    pass
