@@ -29,3 +29,9 @@ def update_agent(id : int, update_agent : AgentUpdate, db : Session = Depends(ge
     
     if update_agent.hostname is not None:
         agent.hostname =update_agent.hostname 
+        
+    db.commit()
+    db.refresh(agent)
+    
+    return agent
+    
