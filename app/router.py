@@ -22,6 +22,10 @@ def get_agents(db : Session = Depends(get_db)):
     agents = db.query(Agent).all()
     return agents
 
-@router.put("/update", response_model= AgentUpdate)
-def update_agent(agent : Agentcreate, db : Session = Depends(get_db)):
-    pass
+@router.put("/update", response_model= AgentRetrieval)
+def update_agent(id : int, update_agent : AgentUpdate, db : Session = Depends(get_db)):
+    
+    agent = db.query(Agent).filter(Agent.id == id).first()
+    
+    if update_agent.hostname is not None:
+        agent.hostname =update_agent.hostname 
