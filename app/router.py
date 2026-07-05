@@ -30,6 +30,11 @@ def update_agent(id : int, update_agent : AgentUpdate, db : Session = Depends(ge
     if update_agent.hostname is not None:
         agent.hostname =update_agent.hostname 
         
+    if update_agent.operating_system is not None:
+        agent.operating_system = update_agent.operating_system
+        
+    
+        
     db.commit()
     db.refresh(agent)
     
