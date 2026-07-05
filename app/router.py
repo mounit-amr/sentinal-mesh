@@ -19,10 +19,10 @@ def createagent(agent: Agentcreate, db : Session = Depends(get_db)):
     
 @router.get("/Agents", response_model= AgentRetrieval)
 def get_agents(db : Session = Depends(get_db)):
-    agents = db.query(Agent).all()
-    return agents
+    agent = db.query(Agent).all()
+    return agent
 
-@router.put("/update", response_model= AgentRetrieval)
+@router.put("/{id}", response_model= AgentRetrieval)
 def update_agent(id : int, update_agent : AgentUpdate, db : Session = Depends(get_db)):
     
     agent = db.query(Agent).filter(Agent.id == id).first()
@@ -34,9 +34,13 @@ def update_agent(id : int, update_agent : AgentUpdate, db : Session = Depends(ge
         agent.operating_system = update_agent.operating_system
         
     
+@router.delete("/{id}", response_model= AgentRetrieval)
+def deleting(id : int , Session = Depends(get_db)):
+    pass
         
     db.commit()
     db.refresh(agent)
     
     return agent
     
+    #  
