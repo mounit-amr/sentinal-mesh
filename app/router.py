@@ -34,13 +34,13 @@ def update_agent(id : int, update_agent : AgentUpdate, db : Session = Depends(ge
         agent.operating_system = update_agent.operating_system
         
     
-@router.delete("/{id}", response_model= AgentRetrieval)
-def deleting(id : int , Session = Depends(get_db)):
-    pass
+    
         
     db.commit()
     db.refresh(agent)
     
     return agent
     
-    #  
+@router.delete("/{id}", response_model= AgentRetrieval)
+def deleting(id : int , Session = Depends(get_db)):
+    pass 
