@@ -30,3 +30,7 @@ class agentregistration(BaseModel):
     operating_system : str
     id_address : str
     
+class agentresponse(BaseModel):
+    agent_id : str
+    api_key : str
+    
