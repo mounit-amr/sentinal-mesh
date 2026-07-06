@@ -2,7 +2,8 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from database import get_db
 from models import Agent
-from schemas import AgentRetrieval, Agentcreate, AgentBase, AgentUpdate
+from schemas import AgentRetrieval, Agentcreate, AgentBase, AgentUpdate, agentregistration, agentresponse
+import uuid, secrets
 
 router = APIRouter(
     prefix="/agents" 
@@ -44,3 +45,17 @@ def update_agent(id : int, update_agent : AgentUpdate, db : Session = Depends(ge
 @router.delete("/{id}", response_model= AgentRetrieval)
 def deleting(id : int , Session = Depends(get_db)):
     pass 
+
+@router.post("/register", response_model= agentresponse)
+def registering(agentinput: agentregistration, db : Session = Depends(get_agents)):
+    
+    agent_id = f"AGT - {uuid.uuid4().hex[:8].upper()}"
+    
+    api_key = secrets.token_hex(32)
+    
+    db_agent = Agent(
+        agent_id = agent_id,
+        hostname = agent.hostname,
+        operating_system = agent.operating_system
+        api_key = api_key
+    )
