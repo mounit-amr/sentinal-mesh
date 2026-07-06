@@ -58,4 +58,9 @@ def registering(agentinput: agentregistration, db : Session = Depends(get_agents
         hostname = agent.hostname,
         operating_system = agent.operating_system
         api_key = api_key
+        
+        db.add(get_agents)
+        db.commit()
+        db.refresh(get_agents)
+        return db_agent
     )
