@@ -25,3 +25,8 @@ class AgentRetrieval(BaseModel):
     lastseen : Optional[datetime] = None
     created_at : datetime
     
+class agentregistration(BaseModel):
+    hostname : str
+    operating_system : str
+    id_address : str
+    
