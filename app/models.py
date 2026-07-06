@@ -22,6 +22,8 @@ class Agent(Base):
     
     operating_system = Column(String)
     
+    api_key = Column(String)
+    
     created_at = Column(DateTime, default= datetime.utcnow)
     
     

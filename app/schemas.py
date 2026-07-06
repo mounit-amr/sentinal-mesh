@@ -33,4 +33,5 @@ class agentregistration(BaseModel):
 class agentresponse(BaseModel):
     agent_id : str
     api_key : str
+    model_config = ConfigDict(from_attributes= True)
     
