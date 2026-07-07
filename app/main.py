@@ -1,11 +1,14 @@
-from fastapi import FastAPI, WebSocket #whats the difference between Websocket and websockets
-
+from fastapi import FastAPI, WebSocket, Depends #whats the difference between Websocket and websockets
+from database import gent
 
 app = FastAPI()
 
 @app.get("/")
 def value():
     return {"online"}
+
+@app.post("/telemetry")
+def authen(agent : Agent = Depends(authenticate)):
     
 @app.websocket("/ws")
 async def websocks(websockets: WebSocket):
@@ -19,4 +22,5 @@ async def websocks(websockets: WebSocket):
     except :
         print("offline")
         
-            
+
+
