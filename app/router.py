@@ -1,10 +1,15 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from database import get_db
 from models import Agent
 from schemas import AgentRetrieval, Agentcreate, AgentBase, AgentUpdate, agentregistration, agentresponse
 import uuid, secrets
+from fastapi.security import APIKeyHeader
 
+
+api_keyheader = APIKeyHeader(
+    name= "Authorization"
+)
 router = APIRouter(
     prefix="/agents" 
     tags=["Agents"]
@@ -19,7 +24,7 @@ def createagent(agent: Agentcreate, db : Session = Depends(get_db)):
     return db_agent
     
 @router.get("/Agents", response_model= AgentRetrieval)
-def get_agents(db : Session = Depends(get_db)):
+def getagents(db : Session = Depends(get_db)):
     agent = db.query(Agent).all()
     return agent
 
@@ -47,7 +52,7 @@ def deleting(id : int , Session = Depends(get_db)):
     pass 
 
 @router.post("/register", response_model= agentresponse)
-def registering(agentinput: agentregistration, db : Session = Depends(get_agents)):
+def registering(agentinput: agentregistration, db : Session = Depends(get_db)):
     
     agent_id = f"AGT - {uuid.uuid4().hex[:8].upper()}"
     
@@ -64,3 +69,14 @@ def registering(agentinput: agentregistration, db : Session = Depends(get_agents
         db.refresh(get_agents)
         return db_agent
     )
+    
+def authenticate (api_key : str = Depends(api_keyheader), db : Session = Depends(get_db)):
+    
+    api_key = api_key.replace("Bearer ", "")
+    
+    agent = db.query(Agent).filter(Agent.api_key == api_key).first() #still search it once agian
+    
+    if agent is None:
+        raise HTTPException(status_code=401, detail = "Invalid api key")
+    
+    return agent
