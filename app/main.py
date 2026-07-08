@@ -1,5 +1,6 @@
 from fastapi import FastAPI, WebSocket, Depends #whats the difference between Websocket and websockets
-from database import gent
+from models import Agent
+from router import authenticate
 
 app = FastAPI()
 
