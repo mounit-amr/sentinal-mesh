@@ -9,7 +9,7 @@ def value():
 
 @app.post("/telemetry")
 def authen(agent : Agent = Depends(authenticate)):
-    
+    pass
 @app.websocket("/ws")
 async def websocks(websockets: WebSocket):
     await websockets.accept()
