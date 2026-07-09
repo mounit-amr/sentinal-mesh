@@ -13,6 +13,8 @@ class User(Base):
     
     email = Column(String, unique = True)
     
+    level = Column(String)
+    
 class Agent(Base):
     __tablename__ = "Agent"
 
