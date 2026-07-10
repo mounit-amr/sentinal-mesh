@@ -1,7 +1,7 @@
 from fastapi import FastAPI, WebSocket, Depends #whats the difference between Websocket and websockets
 from models import Agent
 from router import authenticate
-
+from celery.result import AsyncResult
 app = FastAPI()
 
 @app.get("/")
