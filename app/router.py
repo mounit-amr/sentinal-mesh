@@ -1,17 +1,20 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from database import get_db
-from models import Agent
+from models import Agent, Telemetry
 from schemas import AgentRetrieval, Agentcreate, AgentBase, AgentUpdate, agentregistration, agentresponse, telemetrycreate, telemeryresponse
 import uuid, secrets
 from fastapi.security import APIKeyHeader
+
+router = APIRouter(prefix="/telemetry",
+                   tags=["Telemetry"])
 
 
 api_keyheader = APIKeyHeader(
     name= "Authorization"
 )
 router = APIRouter(
-    prefix="/agents" 
+    prefix="/agents",
     tags=["Agents"]
 )
 
@@ -80,3 +83,7 @@ def authenticate (api_key : str = Depends(api_keyheader), db : Session = Depends
         raise HTTPException(status_code=401, detail = "Invalid api key")
     
     return agent
+
+@router.post("/", response_model=telemeryresponse)
+def create_telemetery():
+    pass
