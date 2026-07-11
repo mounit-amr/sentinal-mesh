@@ -1,4 +1,5 @@
-from sqlalchemy import Column, Integer, String, DateTime
+from sqlalchemy import Column, Integer, String, DateTime, Float, ForeignKey
+from sqlalchemy.orm import relationship
 from database import Base #this base thingy and wrote column instead of Column
 from datetime import datetime#dont know why redlinesJ
 
@@ -26,5 +27,16 @@ class Agent(Base):
     api_key = Column(String)
     
     created_at = Column(DateTime, default= datetime.utcnow)
+    
+    telemetries = relationship("Telemetry", back_populates="agent")
+    
+class Telemetry(Base):
+    __tablename__ = "telemetry"
+    
+    id = Column(Integer, primary_key=True, index= True)
+    
+    
+    
+    
     
     
