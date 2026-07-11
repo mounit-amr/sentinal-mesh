@@ -43,6 +43,9 @@ class Telemetry(Base):
     
     timestamp = Column(DateTime, default=datetime.utcnow)
     
+    agent_id = Column(Integer, ForeignKey("agent.id"))
+    
+    agent = relationship("Agent", back_populates="telemetries")
     
     
     

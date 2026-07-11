@@ -35,3 +35,17 @@ class agentresponse(BaseModel):
     api_key : str
     model_config = ConfigDict(from_attributes= True)
     
+class telemetrycreate(BaseModel):
+    cpu : float
+    ram : float
+    disk : float
+    
+class telemeryresponse(telemetrycreate):
+    
+    id : int
+    timestamp : datetime
+    agent_id : int 
+    model_config = ConfigDict(from_attributes= True)
+    
+
+    
