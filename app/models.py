@@ -18,7 +18,7 @@ class User(Base):
 class Agent(Base):
     __tablename__ = "Agent"
 
-    id = Column(Integer, primary_key = True, index = True)
+    id = Column(Integer, primary_key = True, index = True)  
     
     hostname = Column(String)
     
@@ -34,6 +34,16 @@ class Telemetry(Base):
     __tablename__ = "telemetry"
     
     id = Column(Integer, primary_key=True, index= True)
+    
+    cpu = Column(Float) #why Float and not float?
+    
+    ram = Column(Float)
+    
+    disk = Column(Float)
+    
+    timestamp = Column(DateTime, default=datetime.utcnow)
+    
+    
     
     
     
