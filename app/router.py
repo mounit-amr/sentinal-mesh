@@ -85,5 +85,16 @@ def authenticate (api_key : str = Depends(api_keyheader), db : Session = Depends
     return agent
 
 @router.post("/", response_model=telemeryresponse)
-def create_telemetery():
-    pass
+def create_telemetery(telemetry : telemetrycreate, agent : Agent = Depends(authenticate), db : Session = Depends(get_db)):
+    db_telemetry = Telemetry(
+        cpu = telemetry.cpu,
+        ram = telemetry.ram,
+        disk = telemetry.disk,
+        agent_id = agent.id
+    )
+    
+    db.add(db_telemetry)
+    db.commit()
+    db.refresh(db_telemetry)
+    
+    return db_telemetry
