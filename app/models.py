@@ -28,7 +28,12 @@ class Agent(Base):
     
     created_at = Column(DateTime, default= datetime.utcnow)
     
+    status = Column()
+    
+    last_seen = Column()
+    
     telemetries = relationship("Telemetry", back_populates="agent")
+    
     
 class Telemetry(Base):
     __tablename__ = "telemetry"
