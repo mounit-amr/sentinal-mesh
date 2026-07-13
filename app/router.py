@@ -103,3 +103,6 @@ def create_telemetery(telemetry : telemetrycreate, agent : Agent = Depends(authe
 def heartbeat(agent : Agent = Depends(authenticate), db : Session = Depends(get_db)):
     agent.status = "ONLINE"
     agent.last_seen = datetime.utcnow()
+    db.commit()
+    db.refresh(agent)
+    return agent
