@@ -47,5 +47,9 @@ class telemeryresponse(telemetrycreate):
     agent_id : int 
     model_config = ConfigDict(from_attributes= True)
     
-
+class heartbeatresponse(BaseModel):
+    
+    status: str
+    last_seen : datetime
+    model_config = ConfigDict(from_attributes=True)
     
