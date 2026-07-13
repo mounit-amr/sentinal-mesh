@@ -53,6 +53,26 @@ class Telemetry(Base):
     agent = relationship("Agent", back_populates="telemetries")
     
     
+class Incident(Base):
+    
+    __tablename__ = "incidents"
+    
+    id = Column(Integer, primary_key= True, index = True)
+    
+    Incidenttype = (String)
+    
+    severity = Column(String)
+    
+    description = Column(String)
+    
+    status = Column(String , default= "OPEN")
+    
+    created_at = Column(DateTime, default= datetime.utcnow)
+    
+    agent_id = Column(Integer, ForeignKey("agent.id")) #why?
+    
+    ##relationship bhangbhosda
+    
     
     
     

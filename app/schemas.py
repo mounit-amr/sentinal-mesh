@@ -53,3 +53,9 @@ class heartbeatresponse(BaseModel):
     last_seen : datetime
     model_config = ConfigDict(from_attributes=True)
     
+    
+class createincident(BaseModel):
+    pass
+
+class incidentresponce(BaseModel):
+    pass
