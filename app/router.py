@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from database import get_db
 from models import Agent, Telemetry
-from schemas import AgentRetrieval, Agentcreate, AgentBase, AgentUpdate, agentregistration, agentresponse, telemetrycreate, telemeryresponse
+from schemas import AgentRetrieval, Agentcreate, AgentBase, AgentUpdate, agentregistration, agentresponse,heartbeatresponse, telemetrycreate, telemeryresponse
 import uuid, secrets
 from fastapi.security import APIKeyHeader
 
@@ -98,3 +98,8 @@ def create_telemetery(telemetry : telemetrycreate, agent : Agent = Depends(authe
     db.refresh(db_telemetry)
     
     return db_telemetry
+
+@router.post("/heartbeats", response_model= heartbeatresponse )
+def heartbeat(agent : Agent = Depends(authenticate), db : Session = Depends(get_db)):
+    agent.status = "ONLINE"
+    agent.last_seen = datetime.utcnow()
