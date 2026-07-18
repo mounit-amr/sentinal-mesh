@@ -106,3 +106,4 @@ def heartbeat(agent : Agent = Depends(authenticate), db : Session = Depends(get_
     db.commit()
     db.refresh(agent)
     return agent
+
