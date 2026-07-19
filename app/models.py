@@ -73,6 +73,20 @@ class Incident(Base):
     
     ##relationship bhangbhosda
     
+class Rule(Base):
+    __tablename__ = "rule"
+    
+    id = Column(Integer, primary_key= True, index = True)
+    
+    metric = Column(String)
+    
+    threshold = Column(Float)
+    
+    severity = Column(String)
+    
+    enabled = Column(bool, default= True)
+    
+    
     
     
     

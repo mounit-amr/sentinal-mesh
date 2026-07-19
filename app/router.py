@@ -125,3 +125,7 @@ def create_incident(incident : createincident, agent : Agent = Depends(authentic
         description = incident.descryption
         agent_id = agent.id
         )
+    db.add(db_incident)
+    db.commit()
+    return db_incident
+
