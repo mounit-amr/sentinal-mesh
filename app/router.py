@@ -67,9 +67,9 @@ def registering(agentinput: agentregistration, db : Session = Depends(get_db)):
         operating_system = agent.operating_system
         api_key = api_key
         
-        db.add(get_agents)
+        db.add(db_agent)
         db.commit()
-        db.refresh(get_agents)
+        db.refresh(db_agent)
         return db_agent
     )
     
@@ -113,5 +113,5 @@ def create_incident(incident : createincident, agent : Agent = Depends(authentic
         Incidenttype = incident.inciedent_type
         severity = incident.severity
         description = incident.descryption
-        agent_id = incident.agent_id
-            )
+        agent_id = agent.id
+        )
