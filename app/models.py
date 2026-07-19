@@ -16,7 +16,7 @@ class User(Base):
     
     
 class Agent(Base):
-    __tablename__ = "Agent"
+    __tablename__ = "agent"
 
     id = Column(Integer, primary_key = True, index = True)  
     
@@ -28,9 +28,9 @@ class Agent(Base):
     
     created_at = Column(DateTime, default= datetime.utcnow)
     
-    status = Column()
+    status = Column(String, default= "OFFLINE")
     
-    last_seen = Column()
+    last_seen = Column(DateTime, nullable= True)
     
     telemetries = relationship("Telemetry", back_populates="agent")
     

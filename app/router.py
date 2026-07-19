@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from database import get_db
-from models import Agent, Telemetry
-from schemas import AgentRetrieval, Agentcreate, AgentBase, AgentUpdate, agentregistration, agentresponse,heartbeatresponse, telemetrycreate, telemeryresponse
+from models import Agent, Telemetry, Incident
+from schemas import AgentRetrieval, Agentcreate, AgentBase, AgentUpdate, agentregistration,incidentresponce,createincident, agentresponse,heartbeatresponse, telemetrycreate, telemeryresponse
 import uuid, secrets
 from fastapi.security import APIKeyHeader
 
@@ -107,3 +107,11 @@ def heartbeat(agent : Agent = Depends(authenticate), db : Session = Depends(get_
     db.refresh(agent)
     return agent
 
+@router.post("/incidents", response_model= incidentresponce)
+def create_incident(incident : createincident, agent : Agent = Depends(authenticate), db : Session = Depends(get_db) ):
+    db_incident = Incident(
+        Incidenttype = incident.inciedent_type
+        severity = incident.severity
+        description = incident.descryption
+        agent_id = incident.agent_id
+            )
