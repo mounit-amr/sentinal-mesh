@@ -55,7 +55,15 @@ class heartbeatresponse(BaseModel):
     
     
 class createincident(BaseModel):
-    pass
+    inciedent_type: str
+    severity: str
+    descryption : str
+    
 
 class incidentresponce(BaseModel):
-    pass
+    id : int
+    status : str
+    created_at : datetime
+    agent_id : int
+    model_config = ConfigDict(from_attributes= True)
+    
