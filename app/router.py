@@ -97,6 +97,8 @@ def create_telemetery(telemetry : telemetrycreate, agent : Agent = Depends(authe
     db.commit()
     db.refresh(db_telemetry)
     
+    
+    
     if telemetry.cpu > 90:  #db_telemetry dropped dig into it 19/7 is todays date
         db_incident = Incident(
             Incidenttype = "HIGH_CPU",
