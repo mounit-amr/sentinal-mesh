@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, DateTime, Float, ForeignKey
+from sqlalchemy import Column, Integer, String, DateTime, Float, ForeignKey, Boolean
 from sqlalchemy.orm import relationship
 from database import Base #this base thingy and wrote column instead of Column
 from datetime import datetime#dont know why redlinesJ
@@ -84,7 +84,7 @@ class Rule(Base):
     
     severity = Column(String)
     
-    enabled = Column(bool, default= True)
+    enabled = Column(Boolean, default= True)
     
     
     

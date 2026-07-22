@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from database import get_db
-from models import Agent, Telemetry, Incident
+from models import Agent, Telemetry, Incident, Rule
 from schemas import AgentRetrieval, Agentcreate, AgentBase, AgentUpdate, agentregistration,incidentresponce,createincident, agentresponse,heartbeatresponse, telemetrycreate, telemeryresponse
 import uuid, secrets
 from fastapi.security import APIKeyHeader
@@ -98,18 +98,26 @@ def create_telemetery(telemetry : telemetrycreate, agent : Agent = Depends(authe
     db.refresh(db_telemetry)
     
     rules = db.query(Rule).filter(Rule.enabled == True).all()
+    for rule in rules:
+        if rule.metric == "cpu" and telemetry.cpu > rule.threshold
+        
+            db_incident = Incident(Incidenttype = "HIGH_CPU" , severity = rule.severity, description = "CPU thershold exceeded",
+                                   agent_id = agent.id)
+            db.add(db_incident)
+            db.commit()
+            return db_telemetry
     
-    if telemetry.cpu > 90:  #db_telemetry dropped dig into it 19/7 is todays date
-        db_incident = Incident(
-            Incidenttype = "HIGH_CPU",
-            severity = "HIGH",
-            description ="CPU usage exceeded 90%",
-            agent_id = agent.id
-        )
-    db.add(db_incident)
-    db.commit()
+    # if telemetry.cpu > 90:  #db_telemetry dropped dig into it 19/7 is todays date
+    #     db_incident = Incident(
+    #         Incidenttype = "HIGH_CPU",
+    #         severity = "HIGH",
+    #         description ="CPU usage exceeded 90%",
+    #         agent_id = agent.id
+    #     )
+    # db.add(db_incident)
+    # db.commit()
     
-    return db_telemetry
+    # return db_telemetry
 
 @router.post("/heartbeats", response_model= heartbeatresponse )
 def heartbeat(agent : Agent = Depends(authenticate), db : Session = Depends(get_db)):
